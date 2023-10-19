@@ -1,6 +1,5 @@
 import express from 'express'
 import bodyparser from 'body-parser'
-import { admin } from './firebase-config.js'
 import { verifySignature, nip44, generatePrivateKey, getPublicKey, getEventHash, getSignature } from 'nostr-tools'
 import { RelayPool } from 'nostr'
 import { LRUCache } from 'lru-cache'
@@ -133,20 +132,7 @@ async function notify(event, relay) {
                 },
                 tokens: tokens.filter(function (url){ !isValidUrl(url) })
             };
-    
-            admin.messaging().sendEachForMulticast(message).then((response) => {
-                if (response.failureCount > 0) {
-                  response.responses.forEach((resp, idx) => {
-                    if (!resp.success) {
-                        console.log('Failed: ', resp.error.code, resp.error.message, JSON.stringify(message).length, "chars");
-                        if (resp.error.code === "messaging/registration-token-not-registered") {
-                            console.log('Deleting Token ', tokens[idx]);
-                            deleteToken(tokens[idx])
-                        }
-                    }
-                  });
-                } 
-              });
+
         }
     }
 }
