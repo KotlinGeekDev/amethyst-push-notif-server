@@ -124,14 +124,6 @@ async function notify(event, relay) {
                 });
 
             }
-            
-            const message = {
-                data: {
-                    //event: JSON.stringify(event),
-                    encryptedEvent: JSON.stringify(createWrap(pubkeyTag[1], event))
-                },
-                tokens: tokens.filter(function (url){ !isValidUrl(url) })
-            };
 
         }
     }
