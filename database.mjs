@@ -55,9 +55,8 @@ export async function getAllRelays() {
             && !row.relay.includes("weixin")
             && !row.relay.includes("brb.io") // too many bugs
         ) {
-            relays.push(row.relay)
             if (row.votes > 2) {
-                
+                relays.push(row.relay)
             }
         }
     }
